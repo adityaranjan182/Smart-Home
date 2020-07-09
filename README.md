@@ -1,5 +1,5 @@
 # Smart-Home
-An IoT based android application to control our home appliances (such as lights, fan etc)
+An IoT based android application for home automation used to control home appliances such as lights, fan etc.
 
 **Components used:**
 1) NodeMcu 
