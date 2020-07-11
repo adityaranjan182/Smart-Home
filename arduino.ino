@@ -19,10 +19,11 @@ void setup()
     pinMode(D4, OUTPUT);
     pinMode(D5, OUTPUT);
 
-    digitalWrite(D1, HIGH); //glows red while connecting
-
     digitalWrite(D3, HIGH);
     digitalWrite(D4, HIGH);
+    digitalWrite(D1, HIGH); //glows red while connecting
+
+
     WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
     Serial.print("Connecting to Wi-Fi");
     while (WiFi.status() != WL_CONNECTED)
@@ -47,19 +48,17 @@ void setup()
     if (Firebase.setInt(data_1, "/bulb_status", 0))
     {
         //Success
-        Serial.println("Set int data success");
+        Serial.println("data inserted successfully");
     }
     if (Firebase.setInt(data_2, "/fan_status", 0))
     {
         //Success
-        Serial.println("Set int data success");
+        Serial.println("data inserted successfully");
     }
 }
 
 void loop()
 {
-    int bulb = data_1.intData();
-    int fan = data_2.intData();
     if (!(Firebase.getInt(data_1, "bulb_status")) || !(Firebase.getInt(data_2, "fan_status")))
     {
         Serial.println("error while communicating with firebase");
@@ -72,6 +71,7 @@ void loop()
 
     if (Firebase.getInt(data_1, "bulb_status"))
     {
+        int bulb = data_1.intData();
         if (bulb == 1)
         {
             Serial.println("bulb get turned on");
@@ -85,6 +85,7 @@ void loop()
     }
     if (Firebase.getInt(data_2, "fan_status"))
     {
+        int fan = data_2.intData();
         if (fan == 1)
         {
             Serial.println("fan get turned on");
@@ -96,4 +97,5 @@ void loop()
             digitalWrite(D4, HIGH);
         }
     }
+    delay(500);
 }
